@@ -245,6 +245,7 @@ h1, h2, h3, p {
 }
 
 .tip-amt, .total-result {
+  transition: all 200ms ease-in-out;
   text-align: right;
   margin: 0;
   font-size: 1.7rem;
@@ -277,5 +278,9 @@ h1, h2, h3, p {
 .people-in {
   text-align: right;
   color: #00494d;
+}
+
+.space {
+  padding-bottom: 1rem;
 }
 /*# sourceMappingURL=style.css.map */

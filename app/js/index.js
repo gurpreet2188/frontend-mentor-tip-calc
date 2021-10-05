@@ -1,6 +1,7 @@
 let bill_input = document.querySelector('.bill-in')
 let cal_btn = document.querySelector('.calc__result-btn-1')
 let people_input = document.querySelector('.people-in')
+let clear = document.querySelector('.calc__result-btn-1')
 
 let tips = [5, 15, 50, 10, 25]
 
@@ -11,6 +12,9 @@ let classNames = {
     3 : '.calc__pct-grid-col2-btn3',
     4 : '.calc__pct-grid-col2-btn4'
 }
+
+inputOnChange(bill_input)
+inputOnChange(people_input)
 
 tipBtnClick(classNames[0], tips[0])
 tipBtnClick(classNames[1], tips[1])
@@ -45,7 +49,7 @@ function tipCal(tip) {
     let bill = parseFloat(bill_input.value)
     let people = parseInt(people_input.value)
 
-    if(!isNaN(bill) && !isNaN(people)) {
+    if(!isNaN(bill) || !isNaN(people)) {
         if (isNaN(people)) {
             let totalCal = (bill / 100) * tip
             let total_bill = totalCal + bill
@@ -58,7 +62,37 @@ function tipCal(tip) {
             d('.total-result', (total_bill / people).toFixed(2))
         }
     }
-   
-   
-    
 }
+
+function inputOnChange (e) {
+    e.addEventListener("keyup", function() {
+        let activeBtn = -1
+        for (i in classNames) {
+
+            if (document.getElementById(`${i}`).classList.contains('selected')) {
+                activeBtn = i
+                break
+            }
+        }
+        console.log(e.value)
+        if (e.value === "") {
+            d('.tip-amt', "")
+            d('.total-result', "")
+        }
+        try {
+            tipCal(tips[activeBtn])
+        } catch (error) {
+            
+        }
+        
+    })
+}
+
+clear.addEventListener('click', function () {
+    d('.tip-amt', "")
+    d('.total-result', "")
+    bill_input.value = ""
+    people_input.value = ""
+    removeCls()
+    document.querySelector(classNames[1]).classList.add('selected')
+})
