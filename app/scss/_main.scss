@@ -1,0 +1,40 @@
+html {
+    font-size: 100%;
+    box-sizing: border-box;
+    height: 100%;
+}
+
+body {
+    background-color: $lightGrayishCyan1;
+    // font-family:'Space Mono', monospace;
+    line-height: 0;
+    margin: 0;
+    height: 100%;
+}
+h1, h2, h3, p {
+    font-family:'Space Mono', monospace;
+    font-weight: 700;
+}
+.header {
+    
+    width: 100%;
+    height:8.875rem ;
+    text-align: center;
+    
+    h1 {
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: 20%;
+        &:not(:last-child) {
+            padding-top: 3rem;
+        }
+        font-size: 1.20rem;
+        line-height: 1.5;
+        letter-spacing: 10px;
+        color: $veryDarkCyan;
+        font-weight: 700;
+    }
+    
+}
