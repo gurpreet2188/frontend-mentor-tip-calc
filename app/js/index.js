@@ -1,20 +1,28 @@
-let bill_input = document.querySelector('.bill-in')
-let cal_btn = document.querySelector('.calc__result-btn-1')
-let people_input = document.querySelector('.people-in')
-let clear = document.querySelector('.calc__result-btn-1')
+const bill_input = document.querySelector('.bill-in')
+const cal_btn = document.querySelector('.calc__result-btn-1')
+const people_input = document.querySelector('.people-in')
+const clear = document.querySelector('.calc__result-btn-1')
+const customPCT = document.querySelector('.calc__pct-grid-btn5')
 
-let tips = [5, 15, 50, 10, 25]
+const tips = [5, 25, 10, 50, 15, ]
 
-let classNames = {
-    0 : '.calc__pct-grid-col1-btn0',
-    1 : '.calc__pct-grid-col1-btn1',
-    2 : '.calc__pct-grid-col1-btn2',
-    3 : '.calc__pct-grid-col2-btn3',
-    4 : '.calc__pct-grid-col2-btn4'
+const classNames = {
+    0 : '.calc__pct-grid-btn0',
+    1 : '.calc__pct-grid-btn1',
+    2 : '.calc__pct-grid-btn2',
+    3 : '.calc__pct-grid-btn3',
+    4 : '.calc__pct-grid-btn4'
 }
 
-inputOnChange(bill_input)
+
+if (bill_input.value === "") {
+    clear.style.opacity = "0.3"
+}
+
 inputOnChange(people_input)
+inputOnChange(bill_input)
+inputOnChangeCustom(customPCT)
+
 
 tipBtnClick(classNames[0], tips[0])
 tipBtnClick(classNames[1], tips[1])
@@ -65,7 +73,14 @@ function tipCal(tip) {
 }
 
 function inputOnChange (e) {
+    e.focus()
     e.addEventListener("keyup", function() {
+        if (bill_input.value === "" && customPCT.value === "" && people_input.value === "") {
+            clear.style.opacity = "0.3"
+        }else {
+            clear.style.opacity = "1.0"
+            clear.style.transition = "all 200ms ease-in"
+        }
         let activeBtn = -1
         for (i in classNames) {
 
@@ -74,17 +89,39 @@ function inputOnChange (e) {
                 break
             }
         }
-        console.log(e.value)
+
         if (e.value === "") {
             d('.tip-amt', "")
             d('.total-result', "")
         }
-        try {
-            tipCal(tips[activeBtn])
-        } catch (error) {
-            
+        // console.log(bill_input.value)
+        if (bill_input.value != "") {
+            // console.log('trye')
+            try {
+                if (customPCT.value === "") {
+                    tipCal(tips[activeBtn])
+                } else {
+                    removeCls()
+                    tipCal(parseFloat(customPCT.value))
+                }
+                
+            } catch (error) {
+                
+            }
         }
         
+       
+    })
+}
+
+function inputOnChangeCustom (e) {
+    e.focus()
+    e.addEventListener("keyup", function() { 
+        removeCls()
+        inputOnChange(e)
+        if (customPCT.value === "") {
+            document.querySelector(classNames[4]).classList.add('selected')
+        }
     })
 }
 
@@ -93,6 +130,8 @@ clear.addEventListener('click', function () {
     d('.total-result', "")
     bill_input.value = ""
     people_input.value = ""
+    customPCT.value = ""
     removeCls()
-    document.querySelector(classNames[1]).classList.add('selected')
+    document.querySelector(classNames[4]).classList.add('selected')
+    clear.style.opacity = "0.3"
 })
