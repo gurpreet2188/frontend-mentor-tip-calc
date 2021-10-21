@@ -4,7 +4,7 @@ const people_input = document.querySelector('.people-in')
 const clear = document.querySelector('.calc__result-btn-1')
 const customPCT = document.querySelector('.calc__pct-grid-btn5')
 
-const tips = [5, 25, 10, 50, 15, ]
+const tips = [5, 25, 10, 50, 15]
 
 const classNames = {
     0 : '.calc__pct-grid-btn0',
@@ -94,9 +94,9 @@ function inputOnChange (e) {
             d('.tip-amt', "")
             d('.total-result', "")
         }
-        // console.log(bill_input.value)
+       
         if (bill_input.value != "") {
-            // console.log('trye')
+            
             try {
                 if (customPCT.value === "") {
                     tipCal(tips[activeBtn])
